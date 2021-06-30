@@ -1,0 +1,216 @@
+
+
+# --------------------------------
+# BASE of worker
+
+server:
+  port: 8080
+  servlet:
+    context-path: /v0.1
+    encoding:
+      charset: utf-8
+      enabled: true
+      force: true
+      force-request: true
+      force-response: true
+      # mapping: 
+
+
+spring:
+  config.use-legacy-processing: true
+  profiles.active:
+  - proj-default
+  - proj-air
+  #- proj-pro
+  #- proj-aws
+  #- proj-dfep
+  #- proj-real
+  h2.console:
+    enabled: true
+    path: /h2
+    settings:
+      trace: false
+      web-allow-others: true
+  datasource:
+    url: jdbc:h2:tcp://localhost:9092/monsterdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    driverClassName: org.h2.Driver
+    username: sa
+    password:
+#    hikari:
+#      jdbc-url: jdbc:h2:tcp://localhost:9092/lightnetdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+#      # jdbc-url: jdbc:h2:tcp://localhost:9092/lightnetdb;MODE=Oracle;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+#      # jdbc-url: jdbc:h2:mem:testdb
+#      driver-class-name: org.h2.Driver
+#      username: sa
+#      password:
+  jpa:
+    open-in-view: true
+    show-sql: true
+    database: h2
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate.ddl-auto: update
+    properties:
+      hibernate.jdbc.time-zone: UTC+9
+  data.rest:
+    base-path: /api
+    default-page-size: 5
+    max-page-size: 50
+  thymeleaf:
+    enabled: true
+    encoding: utf-8
+    cache: false
+    prefix: classpath:templates/
+    suffix: .html
+  servlet.multipart:
+    enabled: true
+    location: ~/FILES
+    max-file-size: 5GB
+    max-request-size: 5GB
+  devtools:
+    livereload.enabled: true
+  mandatory-file-encoding: utf-8
+
+
+# %Logger{length} : Logger name을 축약할 수 있다. {length}는 최대 자리 수, ex)logger{35}
+# %-5level : 로그 레벨, -5는 출력의 고정폭 값(5글자)
+# %msg : - 로그 메시지 (=%message)
+# ${PID:-} : 프로세스 아이디
+# %d : 로그 기록시간
+# %p : 로깅 레벨
+# %F : 로깅이 발생한 프로그램 파일명
+# %M : 로깅일 발생한 메소드의 명
+# %l : 로깅이 발생한 호출지의 정보
+# %L : 로깅이 발생한 호출지의 라인 수
+# %thread : 현재 Thread 명
+# %t : 로깅이 발생한 Thread 명
+# %c : 로깅이 발생한 카테고리
+# %C : 로깅이 발생한 클래스 명
+# %m : 로그 메시지
+# %n : 줄바꿈(new line)
+# %% : %를 출력
+# %r : 애플리케이션 시작 이후부터 로깅이 발생한 시점까지의 시간(ms)
+# 
+logging:
+  file:
+    path: logs/zotto/
+    max-size: 10MB
+    max-history: 30         # delete after a month
+  pattern:
+    console: "%clr(%d{HH:mm:ss} %p){magenta} - %m%n"
+    file: "%d %-5level [%-10thread] [%-30logger{30}] - %m%n"
+  level:
+    root: info
+    org.tain.*: info
+    org.tain.mybatis.mappers: trace
+    org.hibernate.SQL: info
+    org.hibernate.type: info
+    org.hibernate.type.descriptor.sql.BasicBinder: trace
+    org.thymeleaf: info
+    org.h2.server.web: info
+    
+    #org.tain.utils.TransferStrAndJson: trace
+
+
+---
+# --------------------------------------------------------
+# --------------------------------------------------------
+# --------------------------------------------------------
+spring.profiles: proj-default
+
+proj-env:
+  base:
+    name: Zotto API project
+    program: KieaZotto API program
+    version: ver 1.1_2021.04.01
+    comment: This is Zotto API project.
+    char-set: utf-8
+    #test-flag: true
+    test-flag: false
+    svr-code: TEST03
+    async-size: 20
+
+---
+# --------------------------------------------------------
+# proj-local
+spring.profiles: proj-air
+
+proj-env:
+  param:
+    name: PARAM (air)
+    #home: /Users/kangmac
+    home: /Users/kang-air
+    base: /KANG/monster/20210320
+    info-path: /json/info
+    data-path: /json/data
+    
+    base-path: /Users/kang-air/STS/workspace/KieaZotto-02/src/main/resources/json
+    cust-file:      cust.json
+    cust-prod-file: cust_prod.json
+    prod-file:      prod.json
+  job:
+    name: JOB (air)
+  json:
+    name: JSON (air)
+  url:
+    name: URL (air)
+
+---
+# --------------------------------------------------------
+# proj-test
+spring.profiles: proj-pro
+
+proj-env:
+  param:
+    name: PARAM (pro)
+  job:
+    name: JOB (pro)
+  json:
+    name: JSON (pro)
+  url:
+    name: URL (pro)
+
+---
+# --------------------------------------------------------
+# proj-aws
+spring.profiles: proj-aws
+
+proj-env:
+  param:
+    name: PARAM (aws)
+  job:
+    name: JOB (aws)
+  json:
+    name: JSON (aws)
+  url:
+    name: URL (aws)
+
+---
+# --------------------------------------------------------
+# proj-dfep
+spring.profiles: proj-dfep
+
+proj-env:
+  param:
+    name: PARAM (dfep)
+  job:
+    name: JOB (dfep)
+  json:
+    name: JSON (dfep)
+  url:
+    name: URL (dfep)
+
+---
+# --------------------------------------------------------
+# proj-real
+spring.profiles: proj-real
+
+proj-env:
+  param:
+    name: PARAM (real)
+  job:
+    name: JOB (real)
+  json:
+    name: JSON (real)
+  url:
+    name: URL (real)
+

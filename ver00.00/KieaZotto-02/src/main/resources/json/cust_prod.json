@@ -1,0 +1,45 @@
+[
+	{
+		"custCode": "C001",
+		"prodCode": "P001",
+		"prodCnt": 3
+	},{
+		"custCode": "C001",
+		"prodCode": "P002",
+		"prodCnt": 5
+	},{
+		"custCode": "C001",
+		"prodCode": "P003",
+		"prodCnt": 2
+	},{
+		"custCode": "C001",
+		"prodCode": "P004",
+		"prodCnt": 7
+	},
+	{
+		"custCode": "C002",
+		"prodCode": "P002",
+		"prodCnt": 2
+	},{
+		"custCode": "C002",
+		"prodCode": "P003",
+		"prodCnt": 7
+	},{
+		"custCode": "C002",
+		"prodCode": "P004",
+		"prodCnt": 6
+	},
+	{
+		"custCode": "C003",
+		"prodCode": "P001",
+		"prodCnt": 6
+	},{
+		"custCode": "C003",
+		"prodCode": "P003",
+		"prodCnt": 3
+	},{
+		"custCode": "C003",
+		"prodCode": "P004",
+		"prodCnt": 8
+	}
+]

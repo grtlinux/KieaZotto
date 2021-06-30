@@ -1,0 +1,111 @@
+package org.tain.tools.queue;
+
+import org.springframework.stereotype.Component;
+import org.tain.tools.node.MonJsonNode;
+
+@Deprecated
+@Component("MonQueueBox")
+public class MonQueueBox {
+
+	///////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////
+	
+	// queue for sending message
+	private MonQueue<MonJsonNode> queueAuthenticate = new MonQueue<>();
+	
+	public void setQueueAuthenticate(MonJsonNode object) {
+		this.queueAuthenticate.set(object);
+	}
+	
+	public MonJsonNode getQueueAuthenticate() {
+		return this.queueAuthenticate.get();
+	}
+	
+	public void clearQueueAuthenticate() {
+		this.queueAuthenticate.clear();
+	}
+	
+	///////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////
+	
+	// queue for sending message
+	private MonQueue<MonJsonNode> queueCurrent = new MonQueue<>();
+	
+	public void setQueueCurrent(MonJsonNode object) {
+		this.queueCurrent.set(object);
+	}
+	
+	public MonJsonNode getQueueCurrent() {
+		return this.queueCurrent.get();
+	}
+	
+	public void clearQueueCurrent() {
+		this.queueCurrent.clear();
+	}
+	
+	///////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////
+	
+	// queue for sending message
+	private MonQueue<MonJsonNode> queueHistory = new MonQueue<>();
+	
+	public void setQueueHistory(MonJsonNode object) {
+		this.queueHistory.set(object);
+	}
+	
+	public MonJsonNode getQueueHistory() {
+		return this.queueHistory.get();
+	}
+	
+	public void clearQueueHistory() {
+		this.queueHistory.clear();
+	}
+	
+	///////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////
+	
+	/*
+	// queue for sending message
+	private MonQueue<MonJsonNode> queueSendResult = new MonQueue<>();
+	
+	public void setQueueSendResult(MonJsonNode object) {
+		this.queueSendResult.set(object);
+	}
+	
+	public MonJsonNode getQueueSendResult() {
+		return this.queueSendResult.get();
+	}
+	
+	public void clearQueueSendResult() {
+		this.queueSendResult.clear();
+	}
+	*/
+	
+	///////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////
+	
+	/*
+	private MonQueue<MonJsonNode> queueSplitCommands = new MonQueue<>();
+	
+	public void setQueueSplitCommands(MonJsonNode object) {
+		this.queueSplitCommands.set(object);
+	}
+	
+	public MonJsonNode getQueueSplitCommands() {
+		return this.queueSplitCommands.get();
+	}
+	
+	public void clearQueueSplitCommands() {
+		this.queueSplitCommands.clear();
+	}
+	*/
+	
+	///////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////
+}
