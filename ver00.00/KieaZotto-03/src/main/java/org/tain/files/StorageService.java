@@ -8,6 +8,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 public interface StorageService {
 
+	// init
 	void deleteAll() throws Exception;
 	void init() throws Exception;
 	
