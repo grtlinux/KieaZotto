@@ -62,6 +62,9 @@ public class FileUploadController {
 		log.info("KANG-20210405 >>>>> {} {}", CurrentInfo.get());
 		
 		Resource file = this.service.loadAsResource(filename);
-		return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION, "attachement;filename=\"" + file.getFilename() + "\"").body(file);
+		return ResponseEntity
+				.ok()
+				.header(HttpHeaders.CONTENT_DISPOSITION, "attachement;filename=\"" + file.getFilename() + "\"")
+				.body(file);
 	}
 }
