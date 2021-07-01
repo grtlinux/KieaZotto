@@ -8,8 +8,8 @@
 		<h2 th:text="${message}">TEMP</h2>
 	</div>
 	
-	<form method="POST" enctype="multipart/form-data" action="/v0.1/files">
 	<div>
+	<form method="POST" enctype="multipart/form-data" action="/v0.1/files">
 		<table>
 			<tr>
 				<td>File to upload:</td>
@@ -20,8 +20,8 @@
 				<td><input type="submit" value="Upload"/></td>
 			</tr>
 		</table>
-	</div>
 	</form>
+	</div>
 	<div>
 		<ul>
 			<li th:each="file : ${files}">
