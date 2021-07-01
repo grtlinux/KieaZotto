@@ -3,10 +3,10 @@ package org.tain.files;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.stream.Stream;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
@@ -22,14 +22,16 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class FileSystemStorageService implements StorageService {
 
-	private final Path rootLocation = Paths.get("FILES");
+	//private final Path rootLocation = Paths.get("FILES");
+	@Value("${spring.servlet.multipart.location}")
+	private Path rootLocation;
 	
 	@Bean
 	public void start() throws Exception {
-		log.info("KANG-20210405 >>>>> {} {}", CurrentInfo.get());
+		log.info("KANG-20210405 >>>>> START {}", CurrentInfo.get());
 		if (Boolean.TRUE) this.deleteAll();
 		if (Boolean.TRUE) this.init();
-		log.info("KANG-20210405 >>>>> {} {}", CurrentInfo.get());
+		log.info("KANG-20210405 >>>>> END   {}, rootLocation: {}", CurrentInfo.get(), this.rootLocation.getFileName());
 	}
 	
 	@Override
