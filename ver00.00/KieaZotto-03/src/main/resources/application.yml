@@ -1,0 +1,18 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /v0.1
+
+spring:
+  thymeleaf:
+    enabled: true
+    encoding: utf-8
+    cache: false
+    prefix: classpath:templates/
+    suffix: .html
+    
+  servlet.multipart:
+    enabled: true
+    location: FILES
+    max-file-size: 5GB
+    max-request-size: 5GB
