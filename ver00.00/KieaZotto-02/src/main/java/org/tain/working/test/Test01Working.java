@@ -1,5 +1,7 @@
 package org.tain.working.test;
 
+import java.io.File;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Iterator;
@@ -55,6 +57,35 @@ public class Test01Working {
 		
 		if (Boolean.TRUE) {
 			//
+			//
+		}
+	}
+	
+	@SuppressWarnings("unused")
+	public void test0102() throws Exception {
+		log.info("KANG-20210405 >>>>> {} {}", CurrentInfo.get());
+		
+		if (Boolean.TRUE) {
+			File file1 = new File("/home/user/test.txt");
+			Path path1 = Paths.get("/home/user");
+			Path path2 = Paths.get("/home/user/test.txt");
+			Path path3 = file1.toPath();  // File -> Path
+			File file2 = path2.toFile();  // Path -> File
+			
+			try {
+				if (!Files.isDirectory(path1)) {
+					Files.createDirectories(path1);
+				}
+				
+				if (!Files.exists(path2)) {
+					Files.createFile(path2);
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		if (Boolean.TRUE) {
 			//
 		}
 	}
