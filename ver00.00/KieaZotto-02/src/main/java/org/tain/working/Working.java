@@ -5,6 +5,7 @@ import org.springframework.stereotype.Component;
 import org.tain.utils.CurrentInfo;
 import org.tain.working.load.LoadWorking;
 import org.tain.working.properties.PropertiesWorking;
+import org.tain.working.test.Test01Working;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -18,6 +19,7 @@ public class Working {
 		if (Boolean.TRUE) jobProperties();
 		if (Boolean.TRUE) jobLoad();
 		//if (Boolean.TRUE) jobFileupload();
+		if (Boolean.TRUE) jobTest01();
 	}
 	
 	///////////////////////////////////////////////////////////////////////////
@@ -55,4 +57,15 @@ public class Working {
 		if (Boolean.TRUE) this.storageService.init();
 	}
 	*/
+	
+	///////////////////////////////////////////////////////////////////////////
+	
+	@Autowired
+	private Test01Working test01Working;
+	
+	private void jobTest01() throws Exception {
+		log.info("KANG-20210405 >>>>> {} {}", CurrentInfo.get());
+		
+		if (Boolean.TRUE) this.test01Working.test0101();
+	}
 }
