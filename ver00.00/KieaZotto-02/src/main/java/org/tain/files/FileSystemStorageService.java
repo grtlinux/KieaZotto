@@ -34,11 +34,29 @@ public class FileSystemStorageService implements StorageService {
 		log.info("KANG-20210405 >>>>> END   {}, rootLocation: {}", CurrentInfo.get(), this.rootLocation.getFileName());
 	}
 	
+	///////////////////////////////////////////////////////////////////////////
+	// init
+	@Override
+	public void deleteAll() throws Exception {
+		FileSystemUtils.deleteRecursively(this.rootLocation.toFile());
+	}
+	
 	@Override
 	public void init() throws Exception {
 		Files.createDirectories(this.rootLocation);
 	}
 
+	///////////////////////////////////////////////////////////////////////////
+	// list
+	@Override
+	public Stream<Path> loadAll() throws Exception {
+		return Files.walk(this.rootLocation, 1)
+				.filter(path -> !path.equals(this.rootLocation))
+				.map(this.rootLocation::relativize);
+	}
+	
+	///////////////////////////////////////////////////////////////////////////
+	// upload
 	@Override
 	public void store(MultipartFile file) throws Exception {
 		String filename = StringUtils.cleanPath(file.getOriginalFilename());
@@ -56,13 +74,8 @@ public class FileSystemStorageService implements StorageService {
 		}
 	}
 
-	@Override
-	public Stream<Path> loadAll() throws Exception {
-		return Files.walk(this.rootLocation, 1)
-				.filter(path -> !path.equals(this.rootLocation))
-				.map(this.rootLocation::relativize);
-	}
-
+	///////////////////////////////////////////////////////////////////////////
+	// download
 	@Override
 	public Resource loadAsResource(String filename) throws Exception {
 		Path file = load(filename);
@@ -76,10 +89,5 @@ public class FileSystemStorageService implements StorageService {
 	@Override
 	public Path load(String filename) throws Exception {
 		return this.rootLocation.resolve(filename);
-	}
-
-	@Override
-	public void deleteAll() throws Exception {
-		FileSystemUtils.deleteRecursively(this.rootLocation.toFile());
 	}
 }
