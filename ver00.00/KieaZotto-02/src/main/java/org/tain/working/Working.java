@@ -17,6 +17,7 @@ public class Working {
 		
 		if (Boolean.TRUE) jobProperties();
 		if (Boolean.TRUE) jobLoad();
+		//if (Boolean.TRUE) jobFileupload();
 	}
 	
 	///////////////////////////////////////////////////////////////////////////
@@ -40,4 +41,18 @@ public class Working {
 		
 		if (Boolean.TRUE) this.loadWorking.doing();
 	}
+	
+	///////////////////////////////////////////////////////////////////////////
+	
+	/*
+	@Autowired
+	private StorageService storageService;
+	
+	private void jobFileupload() throws Exception {
+		log.info("KANG-20210405 >>>>> {} {}", CurrentInfo.get());
+		
+		if (Boolean.TRUE) this.storageService.deleteAll();
+		if (Boolean.TRUE) this.storageService.init();
+	}
+	*/
 }

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>UpLoader</title>
+</head>
+<body>
+	<div th:if="${message}">
+		<h2 th:text="${message}">TEMP</h2>
+	</div>
+	
+	<form method="POST" enctype="multipart/form-data" action="/v0.1/files">
+	<div>
+		<table>
+			<tr>
+				<td>File to upload:</td>
+				<td><input type="file" name="file"/></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td><input type="submit" value="Upload"/></td>
+			</tr>
+		</table>
+	</div>
+	</form>
+	<div>
+		<ul>
+			<li th:each="file : ${files}">
+				<a th:href="${file}" th:text="${file}">TEMP</a>
+			</li>
+		</ul>
+	</div>
+</body>
+</html>

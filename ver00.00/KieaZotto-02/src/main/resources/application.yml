@@ -63,7 +63,7 @@ spring:
     suffix: .html
   servlet.multipart:
     enabled: true
-    location: ~/FILES
+    #location: ~/FILES
     max-file-size: 5GB
     max-request-size: 5GB
   devtools:
@@ -143,7 +143,7 @@ proj-env:
     info-path: /json/info
     data-path: /json/data
     
-    base-path: /Users/kang-air/STS/workspace/KieaZotto-02/src/main/resources/json
+    base-path: /Users/kang-air/STS/GIT/KieaZotto/ver00.00/KieaZotto-02/src/main/resources/json
     cust-file:      cust.json
     cust-prod-file: cust_prod.json
     prod-file:      prod.json
