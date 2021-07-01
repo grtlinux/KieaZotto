@@ -86,7 +86,17 @@ public class Test01Working {
 		}
 		
 		if (Boolean.TRUE) {
-			//
+			// resolve
+		}
+		
+		if (Boolean.TRUE) {
+			// relativize
+			Path path1 = Paths.get("/home/users/hello/world");
+			Path path2 = Paths.get("/home/users/hello/world/My/Name/is/Kang");
+			Path path3 = path1.relativize(path2);
+			System.out.println(">>>>> path1: " + path1);  // /home/users/hello/world
+			System.out.println(">>>>> path2: " + path2);  // /home/users/hello/world/My/Name/is/Kang
+			System.out.println(">>>>> path3: " + path3);  //                         My/Name/is/Kang
 		}
 	}
 }
