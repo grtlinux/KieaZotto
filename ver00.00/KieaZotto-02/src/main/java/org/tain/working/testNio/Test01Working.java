@@ -1,13 +1,18 @@
-package org.tain.working.test;
+package org.tain.working.testNio;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.FileVisitOption;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardWatchEventKinds;
+import java.nio.file.WatchKey;
+import java.nio.file.WatchService;
 import java.nio.file.attribute.FileTime;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -60,6 +65,26 @@ public class Test01Working {
 		if (Boolean.TRUE) {
 			// REF: https://m.blog.naver.com/rain483/220643246925
 			// NIO(2) : 파일과 디렉토리(4) - 와치 서비스 ( WatchService )
+			try {
+				Path path = Paths.get("/home/users");
+				WatchService watchService = path.getFileSystem().newWatchService();
+				path.register(watchService
+						, StandardWatchEventKinds.ENTRY_CREATE
+						, StandardWatchEventKinds.ENTRY_MODIFY
+						, StandardWatchEventKinds.ENTRY_DELETE
+						);
+				// loop forever to watch directory
+				while (Boolean.TRUE) {
+					WatchKey watchKey = watchService.take();  // This call is blocking until events are present.
+					
+					// create the list of path files
+					List<String> filesLog = new ArrayList<>();
+				}
+			} catch (InterruptedException e) {
+				System.err.println("Directory watcher thread interrupted...");
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
 		
 		if (Boolean.TRUE) {
@@ -68,7 +93,7 @@ public class Test01Working {
 		}
 	}
 	
-	@SuppressWarnings("unused")
+	@SuppressWarnings({ "unused", "resource" })
 	public void test0102() throws Exception {
 		log.info("KANG-20210405 >>>>> {} {}", CurrentInfo.get());
 		
@@ -146,7 +171,18 @@ public class Test01Working {
 			Instant yesterday = Instant.now().minus(1, ChronoUnit.DAYS);
 			setAllFilesModifiedDate(path, yesterday);
 		}
+		
+		if (Boolean.TRUE) {
+			// walk
+			Path rootPath = Paths.get("/home/users");
+			Stream<Path> paths = Files.walk(rootPath, 3, FileVisitOption.FOLLOW_LINKS);
+			paths.limit(10).forEach(System.out::println);
+		}
 	}
+	
+	///////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////
 	
 	// collect files less then fileSize
 	private List<Path> findByFileSize(Path path, long fileSize) throws Exception {
@@ -197,3 +233,4 @@ public class Test01Working {
 		}
 	}
 }
+
