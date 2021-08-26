@@ -126,7 +126,7 @@ proj-env:
     comment: This is Zotto API project.
     char-set: utf-8
     #test-flag: true
-    test-flag: false
+    test-flag: true
     svr-code: TEST03
     async-size: 20
 

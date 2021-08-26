@@ -2,6 +2,10 @@ package org.tain.working.testNio;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.DirectoryStream;
+import java.nio.file.FileStore;
+import java.nio.file.FileSystem;
+import java.nio.file.FileSystems;
 import java.nio.file.FileVisitOption;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -55,14 +59,61 @@ public class Test01Working {
 		if (Boolean.TRUE) {
 			// REF: https://m.blog.naver.com/rain483/220642517041
 			// NIO(2) : 파일과 디렉토리(2) - 파일 시스템 정보(FileSystem)
+			FileSystem fileSystem = FileSystems.getDefault();
+			
+			for (FileStore store : fileSystem.getFileStores()) {
+				System.out.println(">>>>> name: " + store.name());
+				System.out.println(">>>>> type: " + store.type());
+				System.out.println(">>>>> total: " + store.getTotalSpace());
+				System.out.println(">>>>> used: " + (store.getTotalSpace() - store.getUnallocatedSpace()));
+				System.out.println(">>>>> usable: " + store.getUsableSpace());
+				System.out.println();
+			}
+			
+			System.out.println(">>>>> separator: " + fileSystem.getSeparator());
+			System.out.println();
+			
+			for (Path path : fileSystem.getRootDirectories()) {
+				System.out.println(">>>>> * : " + path.toString());
+			}
 		}
 		
 		if (Boolean.TRUE) {
 			// REF: https://m.blog.naver.com/rain483/220643207400
 			// NIO(2) : 파일과 디렉토리(3) - 파일 속성 읽기 / 파일, 디렉토리 생성 과 삭제
+			Path path = Paths.get("/Users/kang-air/FILES/ajax_sample.tar");
+			System.out.println(">>>>> isDirectory: " + Files.isDirectory(path));
+			System.out.println(">>>>> isRegularFile: " + Files.isRegularFile(path));
+			System.out.println(">>>>> getLastModifiedTime: " + Files.getLastModifiedTime(path));
+			System.out.println(">>>>> size: " + Files.size(path));
+			System.out.println(">>>>> getOwner: " + Files.getOwner(path));
+			System.out.println(">>>>> isHidden: " + Files.isHidden(path));
+			System.out.println(">>>>> isReadable: " + Files.isReadable(path));
+			System.out.println(">>>>> isWritable: " + Files.isWritable(path));
+			System.out.println();
+			
+			Path path1 = Paths.get("/Users/kang-air/FILES");
+			Path path2 = Paths.get("/Users/kang-air/FILES/ajax_sample.tar");
+			Path path3 = Paths.get("/Users/kang-air/FILES");
+			
+			if (Files.notExists(path1)) {
+				Files.createDirectories(path1);
+			}
+			if (Files.notExists(path2)) {
+				Files.createFile(path2);
+			}
+			
+			DirectoryStream<Path> directoryStream = Files.newDirectoryStream(path3);
+			for (Path path4 : directoryStream) {
+				if (Files.isDirectory(path4)) {
+					System.out.println(">>>>> dir : " + path4.getFileName());
+				} else {
+					System.out.println(">>>>> file: " + path4.getFileName());
+				}
+			}
 		}
 		
-		if (Boolean.TRUE) {
+		if (!Boolean.TRUE) {
 			// REF: https://m.blog.naver.com/rain483/220643246925
 			// NIO(2) : 파일과 디렉토리(4) - 와치 서비스 ( WatchService )
 			try {
@@ -78,7 +129,7 @@ public class Test01Working {
 					WatchKey watchKey = watchService.take();  // This call is blocking until events are present.
 					
 					// create the list of path files
-					List<String> filesLog = new ArrayList<>();
+					List<String> fimlesLog = new ArrayList<>();
 				}
 			} catch (InterruptedException e) {
 				System.err.println("Directory watcher thread interrupted...");
