@@ -112,7 +112,13 @@ logging:
     org.h2.server.web: info
     
     #org.tain.utils.TransferStrAndJson: trace
-
+    jdbc: off
+    jdbc.sqlonly: info
+    jdbc.sqltiming: off
+    jdbc.audit: off
+    jdbc.resultset: off
+    jdbc.resultsettable: info
+    jdbc.connection: off
 
 ---
 # --------------------------------------------------------
