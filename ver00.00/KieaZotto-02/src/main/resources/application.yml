@@ -32,8 +32,10 @@ spring:
       trace: false
       web-allow-others: true
   datasource:
-    url: jdbc:h2:tcp://localhost:9092/monsterdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
-    driverClassName: org.h2.Driver
+    #url: jdbc:h2:tcp://localhost:9092/monsterdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    url: jdbc:log4jdbc:h2:tcp://localhost:9092/monsterdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    #driverClassName: org.h2.Driver
+    driverClassName: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
     username: sa
     password:
 #    hikari:
@@ -126,7 +128,7 @@ proj-env:
     comment: This is Zotto API project.
     char-set: utf-8
     #test-flag: true
-    test-flag: true
+    test-flag: false
     svr-code: TEST03
     async-size: 20
 
