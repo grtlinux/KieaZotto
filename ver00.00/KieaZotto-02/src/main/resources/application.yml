@@ -45,6 +45,8 @@ spring:
 #      driver-class-name: org.h2.Driver
 #      username: sa
 #      password:
+    #connection-test-query: SELECT 1
+
   jpa:
     open-in-view: true
     show-sql: true
