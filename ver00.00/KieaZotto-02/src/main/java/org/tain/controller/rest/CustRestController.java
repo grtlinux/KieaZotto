@@ -1,6 +1,5 @@
 package org.tain.controller.rest;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -18,6 +17,9 @@ import org.springframework.web.bind.annotation.RestController;
 import org.tain.mybatis.mappers.CustMapper;
 import org.tain.utils.IpPrint;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import lombok.extern.slf4j.Slf4j;
 
 @RestController
@@ -30,18 +32,20 @@ public class CustRestController {
 	
 	@CrossOrigin(origins = "*", methods = {RequestMethod.GET, RequestMethod.POST}, maxAge = 3600)
 	@RequestMapping(value = {"/custs"}, method = {RequestMethod.GET, RequestMethod.POST})
-	public ResponseEntity<?> test(HttpEntity<String> httpEntity) {
+	public ResponseEntity<?> test(HttpEntity<String> httpEntity) throws Exception {
+		String reqBody = null;
 		if (Boolean.TRUE) {
-			HttpHeaders headers = httpEntity.getHeaders();
-			String body = httpEntity.getBody();
+			HttpHeaders reqHeaders = httpEntity.getHeaders();
+			reqBody = httpEntity.getBody();
+			reqBody = "{\"code\": \"C001\"}";
 			log.info(">>>>> ip.info: " + IpPrint.get());
-			log.info(">>>>> request.headers: " + headers.toString());
-			log.info(">>>>> request.body: " + body);
+			log.info(">>>>> reqHeaders: " + reqHeaders.toString());
+			log.info(">>>>> reqBody: " + reqBody);
 		}
 		
 		List<Map<String,Object>> lst = null;
 		if (Boolean.TRUE) {
-			Map<String,Object> mapIn = new HashMap<>();
+			Map<String, Object> mapIn = new ObjectMapper().readValue(reqBody, new TypeReference<Map<String, Object>>() {});
 			lst = this.custMapper.selectAll(mapIn);
 			log.info(">>>>> lst: {}", lst);
 		}

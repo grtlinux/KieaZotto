@@ -14,6 +14,7 @@
 		from
 			tbl_cust_prod
 		where 1=1
+			and prod_cnt >= #{prodCnt}
 	</select>
 
 </mapper>
