@@ -11,6 +11,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardWatchEventKinds;
+import java.nio.file.WatchEvent;
+import java.nio.file.WatchEvent.Kind;
 import java.nio.file.WatchKey;
 import java.nio.file.WatchService;
 import java.nio.file.attribute.FileTime;
@@ -31,6 +33,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class Test01Working {
 
+	@SuppressWarnings("unused")
 	public void test0101() throws Exception {
 		log.info("KANG-20210405 >>>>> {} {}", CurrentInfo.get());
 		
@@ -229,6 +232,44 @@ public class Test01Working {
 			Stream<Path> paths = Files.walk(rootPath, 3, FileVisitOption.FOLLOW_LINKS);
 			paths.limit(10).forEach(System.out::println);
 		}
+	}
+	
+	@SuppressWarnings({ "unused"})
+	public void test0103() throws Exception {
+		String dir = "/home/users/dir";
+		
+		WatchService service = FileSystems.getDefault().newWatchService();
+		Path path = Paths.get(dir);
+		path.register(service,
+				StandardWatchEventKinds.ENTRY_CREATE,
+				StandardWatchEventKinds.ENTRY_DELETE,
+				StandardWatchEventKinds.ENTRY_MODIFY
+				);
+		while (true) {
+			WatchKey key = service.take();
+			List<WatchEvent<?>> list = key.pollEvents();  //이벤트를 방을 때까지 기다림.
+			for (WatchEvent<?> event : list) {
+				Kind<?> kind = event.kind();
+				Path pth = (Path) event.context();
+				if (kind.equals(StandardWatchEventKinds.ENTRY_CREATE)) {
+					// 파일이 생성되었을 때 실행되는 코드
+					System.out.println(">>>>> CREATE: " + path.getFileName());
+				} else if (kind.equals(StandardWatchEventKinds.ENTRY_DELETE)) {
+					// 파일이 삭제되었을 때 실행되는 코드
+					System.out.println(">>>>> DELETE: " + path.getFileName());
+				} else if (kind.equals(StandardWatchEventKinds.ENTRY_MODIFY)) {
+					// 파일이 수정되었을 때 실행되는 코드
+					System.out.println(">>>>> MODIFY: " + path.getFileName());
+				} else if (kind.equals(StandardWatchEventKinds.OVERFLOW)) {
+					// 운영체제에서 이벤트가 소실되었거나 버려질 경우에 발생되는코드
+					System.out.println(">>>>> OVERFLOW ");
+				}
+			}
+			
+			if (!key.reset())
+				break;
+		}
+		service.close();
 	}
 	
 	///////////////////////////////////////////////////////////////////////////
