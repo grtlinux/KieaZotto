@@ -253,13 +253,13 @@ public class Test01Working {
 				Path pth = (Path) event.context();
 				if (kind.equals(StandardWatchEventKinds.ENTRY_CREATE)) {
 					// 파일이 생성되었을 때 실행되는 코드
-					System.out.println(">>>>> CREATE: " + path.getFileName());
+					System.out.println(">>>>> CREATE: " + pth.getFileName());
 				} else if (kind.equals(StandardWatchEventKinds.ENTRY_DELETE)) {
 					// 파일이 삭제되었을 때 실행되는 코드
-					System.out.println(">>>>> DELETE: " + path.getFileName());
+					System.out.println(">>>>> DELETE: " + pth.getFileName());
 				} else if (kind.equals(StandardWatchEventKinds.ENTRY_MODIFY)) {
 					// 파일이 수정되었을 때 실행되는 코드
-					System.out.println(">>>>> MODIFY: " + path.getFileName());
+					System.out.println(">>>>> MODIFY: " + pth.getFileName());
 				} else if (kind.equals(StandardWatchEventKinds.OVERFLOW)) {
 					// 운영체제에서 이벤트가 소실되었거나 버려질 경우에 발생되는코드
 					System.out.println(">>>>> OVERFLOW ");
