@@ -295,6 +295,7 @@ public class Test01Working {
 					
 					if (kind == StandardWatchEventKinds.ENTRY_CREATE) {
 						// get the filename for the event
+						@SuppressWarnings("unchecked")
 						final WatchEvent<Path> watchEventPath = (WatchEvent<Path>) watchEvent;
 						final Path filename = watchEventPath.context();
 						final Path child = path.resolve(filename);
