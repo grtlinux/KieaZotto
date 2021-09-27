@@ -16,11 +16,14 @@ import java.nio.file.WatchEvent.Kind;
 import java.nio.file.WatchKey;
 import java.nio.file.WatchService;
 import java.nio.file.attribute.FileTime;
+import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -234,7 +237,6 @@ public class Test01Working {
 		}
 	}
 	
-	@SuppressWarnings({ "unused"})
 	public void test0103() throws Exception {
 		String dir = "/home/users/dir";
 		
@@ -270,6 +272,80 @@ public class Test01Working {
 				break;
 		}
 		service.close();
+	}
+	
+	public void watchVideoCamera(Path path) throws Exception {
+		WatchService watchService = FileSystems.getDefault().newWatchService();
+		path.register(watchService, StandardWatchEventKinds.ENTRY_CREATE);
+		
+		OUTERMOST:
+		while (true) {
+			//final WatchKey watchKey = watchService.poll();
+			final WatchKey watchKey = watchService.poll(11, TimeUnit.SECONDS);
+			
+			if (watchKey == null) {
+				System.out.println("The video camera is jammed - security watch system is canceled!");
+				break;
+			} else {
+				for (WatchEvent<?> watchEvent : watchKey.pollEvents()) {
+					final Kind<?> kind = watchEvent.kind();
+					
+					if (kind == StandardWatchEventKinds.OVERFLOW)
+						continue;
+					
+					if (kind == StandardWatchEventKinds.ENTRY_CREATE) {
+						// get the filename for the event
+						final WatchEvent<Path> watchEventPath = (WatchEvent<Path>) watchEvent;
+						final Path filename = watchEventPath.context();
+						final Path child = path.resolve(filename);
+						
+						if (Files.probeContentType(child).equals("image/jpeg")) {
+							SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MMM-dd HH:mm:ss");
+							System.out.println("Video capture successfully at: " + dateFormat.format(new Date()));
+						} else {
+							System.out.println("The Video camera capture format failed.");
+							break OUTERMOST;
+						}
+					}
+					
+					boolean valid = watchKey.reset();
+					if (!valid)
+						break;
+				}
+			}
+		}
+		
+		watchService.close();
+	}
+	
+	public void watchRNDir(Path path) throws Exception {
+		try (WatchService watchService = FileSystems.getDefault().newWatchService()) {
+			path.register(watchService
+					, StandardWatchEventKinds.ENTRY_CREATE
+					, StandardWatchEventKinds.ENTRY_MODIFY
+					, StandardWatchEventKinds.ENTRY_DELETE);
+			
+			while (true) {
+				// retrieve and remove the next watch key
+				final WatchKey key = watchService.take();
+
+				for (WatchEvent<?> watchEvent : key.pollEvents()) {
+					final Kind<?> kind = watchEvent.kind();
+					if (kind == StandardWatchEventKinds.OVERFLOW) {
+						continue;
+					}
+					@SuppressWarnings("unchecked")
+					final WatchEvent<Path> watchEventPath = (WatchEvent<Path>) watchEvent;
+					final Path filename = watchEventPath.context();
+					System.out.println(kind + " -> " + filename);
+				}
+
+				boolean valid = key.reset();
+				if (!valid) {
+					break;
+				}
+			}
+		}
 	}
 	
 	///////////////////////////////////////////////////////////////////////////
