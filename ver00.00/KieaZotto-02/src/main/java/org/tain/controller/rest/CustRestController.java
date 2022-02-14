@@ -1,5 +1,6 @@
 package org.tain.controller.rest;
 
+import java.net.URLDecoder;
 import java.util.List;
 import java.util.Map;
 
@@ -37,10 +38,12 @@ public class CustRestController {
 		if (Boolean.TRUE) {
 			HttpHeaders reqHeaders = httpEntity.getHeaders();
 			reqBody = httpEntity.getBody();
-			reqBody = "{\"code\": \"C001\"}";
 			log.info(">>>>> ip.info: " + IpPrint.get());
 			log.info(">>>>> reqHeaders: " + reqHeaders.toString());
-			log.info(">>>>> reqBody: " + reqBody);
+			log.info(">>>>> reqBody1: " + reqBody);
+			reqBody = URLDecoder.decode(reqBody, "utf-8");
+			log.info(">>>>> reqBody2: " + reqBody);
+			//reqBody = "{\"code\": \"C001\"}";
 		}
 		
 		List<Map<String,Object>> lst = null;

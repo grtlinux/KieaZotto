@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>test01.html</title>
+	<!-- download: http://jquery.com/download -->
+	<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+	<script>
+	
+	//jQuery.fn.serializeObject = function() {
+	$.fn.serializeObject = function() {
+		var obj = null;
+		try {
+			if (this[0].tagName && this[0].tagName.toUpperCase() == "FORM") {
+				var arr = this.serializeArray();
+				if (arr) {
+					obj = {};
+					jQuery.each(arr, function() {
+						obj[this.name] = this.value;
+					});
+				}//if ( arr ) {
+			}
+		} catch (e) {
+			alert(e.message);
+		} finally {
+		}
+	
+		return obj;
+	};
+	
+	// script loader
+	$(function() {
+		// https://api.jquery.com/jquery.ajax/
+		/*
+			function showValues() {
+				$("#text").text($("form").serialize());
+			}
+			$("input[type='text']").on("keydown", showValues);
+			$("input[type='checkbox'], input[type='radio']").on("click", showValues);
+			$("select").on("change", showValues);
+		*/
+		// success > complete > done > always
+		// error > complete > fail > always
+		$('#btnAction1').on('click', function(event){
+			console.log('btnAction1');
+			$.ajax({
+				url: "/v0.1/rest/custs",
+				method: "POST",
+				contentType: "application/json; charset=utf-8",
+				dataType: "json",
+				data: JSON.stringify({code: 'C003', val: '123'})
+			})
+			.done(function(json) {
+				console.log('done.json: ' + JSON.stringify(json));
+			})
+			.fail(function(xhr, status, errorThrown) {
+				alert('ERROR');
+				console.log('fail.errmsg: ' + errorThrown)
+				console.log('fail.status: ' + status)
+			})
+			.always(function(xhr, status) {
+				console.log('always.status: ' + status)
+			});
+		});
+		
+		$('#btnAction2').on('click', function(event){
+			console.log('btnAction2');
+			$.ajax({
+				url: '/v0.1/rest/custprods',
+				type: 'POST',
+				contentType: 'application/json; charset=utf-8',
+				dataType: 'json',
+				data: JSON.stringify({prodCnt: 10, val: '한글'}),
+				beforeSend: function() {
+					console.log('beforeSend...');
+				},
+				success: function(data) {
+					console.log('success.data: ' + JSON.stringify(data));
+				},
+				error: function(request, status, error) {
+					console.log('error: ' + status + ': '
+							+ request.status + ': '
+							+ request.responseText + ': '
+							+ error);
+				},
+				complete: function() {
+					console.log('complete');
+				}
+			});
+		});
+		$('#btnAction3').on('click', function(event){
+			console.log('btnAction2');
+			console.log('>>> form1: ' + $("form").serialize());
+			console.log('>>> form2: ' + $("form").serializeArray());
+			console.log('>>> form3: ' + JSON.stringify($("form").serializeObject()));
+		});
+	});
+	</script>
+</head>
+<body>
+	<h1>Ajax: test01</h1>
+	<button id="btnAction1">action1</button>
+	<button id="btnAction2">action2</button>
+	<button id="btnAction3">action3</button>
+	<br>
+	<form>
+		<input type="text" name="name1" value="val1"><br>
+		<input type="text" name="name2" value="한글"><br>
+		<input type="text" name="name3" value="val3"><br>
+	</form>
+</body>
+</html>

@@ -66,7 +66,8 @@ public class Working {
 	private void jobTest01() throws Exception {
 		log.info("KANG-20210405 >>>>> {} {}", CurrentInfo.get());
 		
-		if (Boolean.TRUE) this.test01Working.test0101();
+		if (!Boolean.TRUE) this.test01Working.test0101();
 		if (!Boolean.TRUE) this.test01Working.test0102();
+		if (Boolean.TRUE) this.test01Working.test0104();
 	}
 }

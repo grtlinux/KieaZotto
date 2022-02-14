@@ -2,6 +2,8 @@ package org.tain.working.testNio;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
 import java.nio.file.DirectoryStream;
 import java.nio.file.FileStore;
 import java.nio.file.FileSystem;
@@ -20,6 +22,7 @@ import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
@@ -272,6 +275,24 @@ public class Test01Working {
 				break;
 		}
 		service.close();
+	}
+	
+	public void test0104() throws Exception {
+		log.info("KANG-20220214 >>>>> {} {}", CurrentInfo.get());
+
+		if (Boolean.TRUE) {
+			// {"code":"C002","val":"123"}
+			String txt = "{\"code\":\"C002\",\"val\":\"123\"}";
+			System.out.println(">>> 1: " +  new String(Base64.getUrlEncoder().encode(txt.getBytes())));
+			System.out.println(">>> 2: " +  new String(Base64.getEncoder().encode(txt.getBytes())));
+			System.out.println(">>> 3: " +  URLEncoder.encode(txt, "utf-8"));
+			//System.out.println(">>> enc1: " + enc1);
+			
+			// %7B%22code%22%3A%22C002%22%2C%22val%22%3A%22123%22%7D=
+			String enc2 = "%7B%22code%22%3A%22C002%22%2C%22val%22%3A%22123%22%7D=";
+			System.out.println(">>> 3: " + URLDecoder.decode(enc2, "utf-8"));
+			
+		}
 	}
 	
 	public void watchVideoCamera(Path path) throws Exception {
