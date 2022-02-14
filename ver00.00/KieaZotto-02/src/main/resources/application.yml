@@ -98,8 +98,11 @@ spring:
 logging:
   file:
     path: logs/zotto/
-    max-size: 10MB
-    max-history: 30         # delete after a month
+  logback.rollingpolicy:
+    max-file-size: 10MB
+    max-history: 30
+  # file.max-size: 10MB
+  # file.max-history: 30         # delete after a month
   pattern:
     console: "%clr(%d{HH:mm:ss} %p){magenta} - %m%n"
     file: "%d %-5level [%-10thread] [%-30logger{30}] - %m%n"
