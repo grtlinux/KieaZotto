@@ -46,8 +46,8 @@
 				url: "/v0.1/rest/custs",
 				method: "POST",
 				contentType: "application/json; charset=utf-8",
-				dataType: "json",
-				data: JSON.stringify({code: 'C003', val: '123'})
+				data: JSON.stringify({code: 'C003', val: '123'}),
+				dataType: "json"
 			})
 			.done(function(json) {
 				console.log('done.json: ' + JSON.stringify(json));
@@ -68,10 +68,12 @@
 				url: '/v0.1/rest/custprods',
 				type: 'POST',
 				contentType: 'application/json; charset=utf-8',
-				dataType: 'json',
 				data: JSON.stringify({prodCnt: 10, val: '한글'}),
+				dataType: 'json',
 				beforeSend: function() {
-					console.log('beforeSend...');
+					console.log('beforeSend...1: ' + this.data);
+					this.data = JSON.stringify({prodCnt: 5, val: '한글'});
+					console.log('beforeSend...2: ' + this.data);
 				},
 				success: function(data) {
 					console.log('success.data: ' + JSON.stringify(data));
