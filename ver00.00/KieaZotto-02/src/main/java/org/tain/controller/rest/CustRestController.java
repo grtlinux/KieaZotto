@@ -1,6 +1,6 @@
 package org.tain.controller.rest;
 
-import java.net.URLDecoder;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -41,9 +41,11 @@ public class CustRestController {
 			log.info(">>>>> ip.info: " + IpPrint.get());
 			log.info(">>>>> reqHeaders: " + reqHeaders.toString());
 			log.info(">>>>> reqBody1: " + reqBody);
-			reqBody = URLDecoder.decode(reqBody, "utf-8");
-			log.info(">>>>> reqBody2: " + reqBody);
+			//reqBody = URLDecoder.decode(reqBody, "utf-8");
+			//log.info(">>>>> reqBody2: " + reqBody);
 			//reqBody = "{\"code\": \"C001\"}";
+			if (reqBody == null)
+				reqBody = "{}";
 		}
 		
 		List<Map<String,Object>> lst = null;
@@ -53,11 +55,15 @@ public class CustRestController {
 			log.info(">>>>> lst: {}", lst);
 		}
 		
+		// response
 		MultiValueMap<String,String> headers = null;
 		if (Boolean.TRUE) {
 			headers = new LinkedMultiValueMap<>();
 			headers.add(HttpHeaders.CONTENT_TYPE, "application/json; charset=UTF-8");
 		}
-		return new ResponseEntity<>(lst, headers, HttpStatus.OK);
+		
+		Map<String, Object> mapOut = new HashMap<>();
+		mapOut.put("list", lst);
+		return new ResponseEntity<>(mapOut, headers, HttpStatus.OK);
 	}
 }

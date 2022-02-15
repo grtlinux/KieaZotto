@@ -109,21 +109,28 @@ logging:
   level:
     root: info
     org.tain.*: info
-    org.tain.mybatis.mappers: trace
-    org.hibernate.SQL: info
-    org.hibernate.type: info
-    org.hibernate.type.descriptor.sql.BasicBinder: trace
-    org.thymeleaf: info
-    org.h2.server.web: info
+    # org.tain.mybatis.mappers: trace
+    org.tain.mybatis.mappers: off
+    # org.hibernate.SQL: info
+    org.hibernate.SQL: off
+    org.hibernate.type: off
+    # org.hibernate.type.descriptor.sql.BasicBinder: trace
+    org.hibernate.type.descriptor.sql.BasicBinder: off
+    org.hibernate.tool.*: off
+    org.thymeleaf: off
+    org.h2.server.web: off
     
     #org.tain.utils.TransferStrAndJson: trace
     jdbc: off
-    jdbc.sqlonly: info
-    jdbc.sqltiming: off
+    jdbc.sqlonly: off
+    jdbc.sqltiming: debug
     jdbc.audit: off
     jdbc.resultset: off
-    jdbc.resultsettable: info
+    jdbc.resultsettable: debug
     jdbc.connection: off
+    
+    com.zaxxer.hikari: off
+    com.zaxxer.hikari.HikariConfig: off
 
 ---
 # --------------------------------------------------------

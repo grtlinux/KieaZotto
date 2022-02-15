@@ -1,6 +1,6 @@
 package org.tain.controller.rest;
 
-import java.net.URLDecoder;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -33,17 +33,19 @@ public class CustProdRestController {
 	
 	@CrossOrigin(origins = "*", methods = {RequestMethod.GET, RequestMethod.POST}, maxAge = 3600)
 	@RequestMapping(value = {"/custprods"}, method = {RequestMethod.GET, RequestMethod.POST})
-	public ResponseEntity<?> test(HttpEntity<String> reqEntity) throws Exception {
+	public ResponseEntity<?> test(HttpEntity<String> httpEntity) throws Exception {
 		String reqBody = null;
 		if (Boolean.TRUE) {
-			HttpHeaders reqHeaders = reqEntity.getHeaders();
-			reqBody = reqEntity.getBody();
+			HttpHeaders reqHeaders = httpEntity.getHeaders();
+			reqBody = httpEntity.getBody();
 			log.info(">>>>> ip.info: " + IpPrint.get());
 			log.info(">>>>> reqHeaders: " + reqHeaders.toString());
 			log.info(">>>>> reqBody1: " + reqBody);
-			reqBody = URLDecoder.decode(reqBody, "utf-8");
-			log.info(">>>>> reqBody2: " + reqBody);
+			//reqBody = URLDecoder.decode(reqBody, "utf-8");
+			//log.info(">>>>> reqBody2: " + reqBody);
 			//reqBody = "{\"prodCnt\": 5}";
+			if (reqBody == null)
+				reqBody = "{}";
 		}
 		
 		List<Map<String,Object>> lst = null;
@@ -53,11 +55,15 @@ public class CustProdRestController {
 			log.info(">>>>> lst: {}", lst);
 		}
 		
+		// response
 		MultiValueMap<String,String> headers = null;
 		if (Boolean.TRUE) {
 			headers = new LinkedMultiValueMap<>();
 			headers.add(HttpHeaders.CONTENT_TYPE, "application/json; charset=UTF-8");
 		}
-		return new ResponseEntity<>(lst, headers, HttpStatus.OK);
+		
+		Map<String, Object> mapOut = new HashMap<>();
+		mapOut.put("list", lst);
+		return new ResponseEntity<>(mapOut, headers, HttpStatus.OK);
 	}
 }

@@ -73,21 +73,51 @@
 		$('#btnAction2').on('click', function(event){
 			console.log('btnAction2');
 			$.ajax({
+				url: "/v0.1/rest/prods",
+				method: "POST",
+				contentType: "application/json; charset=utf-8",
+				data: JSON.stringify({code: 'P003', val: '123'}),
+				dataType: "json",
+				beforeSend: function() {
+					var obj2 = {};
+					obj2.code = $('#in2').val();
+					obj2.val = '123';
+					this.data = JSON.stringify(obj2);
+					console.log('beforeSend... data: ' + this.data);
+				}
+			})
+			.done(function(json) {
+				console.log('done.json: ' + JSON.stringify(json));
+				$('#out2').val(JSON.stringify(json));
+			})
+			.fail(function(xhr, status, errorThrown) {
+				alert('ERROR');
+				console.log('fail.errmsg: ' + errorThrown)
+				console.log('fail.status: ' + status)
+			})
+			.always(function(xhr, status) {
+				console.log('always.status: ' + status)
+			});
+		});
+		
+		$('#btnAction3').on('click', function(event){
+			console.log('btnAction3');
+			$.ajax({
 				url: '/v0.1/rest/custprods',
 				type: 'POST',
 				contentType: 'application/json; charset=utf-8',
 				data: JSON.stringify({prodCnt: 10, val: '한글'}),
 				dataType: 'json',
 				beforeSend: function() {
-					var obj2 = {};
-					obj2.prodCnt = $('#in2').val();
-					obj2.val = '한글';
-					this.data = JSON.stringify(obj2);
+					var obj3 = {};
+					obj3.prodCnt = $('#in3').val();
+					obj3.val = '한글';
+					this.data = JSON.stringify(obj3);
 					console.log('beforeSend...: ' + this.data);
 				},
 				success: function(data) {
 					console.log('success.data: ' + JSON.stringify(data));
-					$('#out2').val(JSON.stringify(data));
+					$('#out3').val(JSON.stringify(data));
 				},
 				error: function(request, status, error) {
 					console.log('error: ' + status + ': '
@@ -100,8 +130,8 @@
 				}
 			});
 		});
-		$('#btnAction3').on('click', function(event){
-			console.log('btnAction2');
+		$('#btnAction4').on('click', function(event){
+			console.log('btnAction4');
 			console.log('>>> form1: ' + $("form").serialize());
 			console.log('>>> form2: ' + $("form").serializeArray());
 			console.log('>>> form3: ' + JSON.stringify($("form").serializeObject()));
@@ -115,11 +145,15 @@
 	<button id="btnAction1">action1</button>
 	<input id='out1' type='text' value='' size=50>
 	<br>
-	<input id='in2' type='text' value='1'>
+	<input id='in2' type='text' value='P001'>
 	<button id="btnAction2">action2</button>
 	<input id='out2' type='text' value='' size=50>
 	<br>
+	<input id='in3' type='text' value='7'>
 	<button id="btnAction3">action3</button>
+	<input id='out3' type='text' value='' size=50>
+	<br>
+	<button id="btnAction4">action4</button>
 	<br>
 	<form>
 		<input type="text" name="name1" value="val1"><br>
