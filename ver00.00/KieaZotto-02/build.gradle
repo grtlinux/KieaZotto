@@ -16,6 +16,10 @@ configurations {
 
 repositories {
 	mavenCentral()
+	
+	flatDir {
+		dirs 'libs'
+	}
 }
 
 dependencies {
@@ -39,6 +43,9 @@ dependencies {
 	//implementation 'org.bgee.log4jdbc-log4j2:log4jdbc-log4j2-jdbc4.1:1.16'
 	
 	implementation 'com.integralblue:log4jdbc-spring-boot-starter:1.0.2'
+	
+	// /libs
+	implementation name: 'mydata_v1.9.9'
 }
 
 test {
