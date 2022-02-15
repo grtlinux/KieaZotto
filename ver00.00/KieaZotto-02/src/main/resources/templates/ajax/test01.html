@@ -117,7 +117,7 @@
 				},
 				success: function(data) {
 					console.log('success.data: ' + JSON.stringify(data));
-					$('#out3').val(JSON.stringify(data));
+					$('#out3').val(JSON.stringify(data, null, 2));
 				},
 				error: function(request, status, error) {
 					console.log('error: ' + status + ': '
@@ -142,16 +142,18 @@
 <body>
 	<h1>Ajax: test01</h1>
 	<input id='in1' type='text' value='C001'>
-	<button id="btnAction1">action1</button>
+	<button id="btnAction1">action1(cust)</button>
 	<input id='out1' type='text' value='' size=50>
 	<br>
 	<input id='in2' type='text' value='P001'>
-	<button id="btnAction2">action2</button>
+	<button id="btnAction2">action2(prod)</button>
 	<input id='out2' type='text' value='' size=50>
 	<br>
 	<input id='in3' type='text' value='7'>
-	<button id="btnAction3">action3</button>
-	<input id='out3' type='text' value='' size=50>
+	<button id="btnAction3">action3(custprods)</button>
+	<!-- input id='out3' type='text' value='' size=50 -->
+	<br>
+	<textarea id="out3" rows="4" cols="50"></textarea>
 	<br>
 	<button id="btnAction4">action4</button>
 	<br>
