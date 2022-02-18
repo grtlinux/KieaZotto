@@ -3,4 +3,14 @@
 	PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 	"http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
+	<!--
+	<mappers>
+		<mapper resource="mybatis/mappers/CustMapper.xml" />
+		.....
+	</mappers>
+	<typeAliases>
+		<typeAlias type="org.tain.mybatis.models.CamelMap" alias="CamelMap"/>
+		.....
+	</typeAliases>
+	-->
 </configuration>
