@@ -59,6 +59,9 @@
 			.done(function(json) {
 				console.log('done.json: ' + JSON.stringify(json));
 				$('#out1').val(JSON.stringify(json));
+				$.each(json.list, function(i, row){
+					console.log(i, JSON.stringify(row));
+				});
 			})
 			.fail(function(xhr, status, errorThrown) {
 				alert('ERROR');
@@ -89,6 +92,9 @@
 			.done(function(json) {
 				console.log('done.json: ' + JSON.stringify(json));
 				$('#out2').val(JSON.stringify(json));
+				$.each(json.list, function(i, row){
+					console.log(i, JSON.stringify(row));
+				});
 			})
 			.fail(function(xhr, status, errorThrown) {
 				alert('ERROR');
@@ -118,6 +124,9 @@
 				success: function(data) {
 					console.log('success.data: ' + JSON.stringify(data));
 					$('#out3').val(JSON.stringify(data, null, 2));
+					$.each(data.list, function(i, row){
+						console.log(i, JSON.stringify(row));
+					});
 				},
 				error: function(request, status, error) {
 					console.log('error: ' + status + ': '
