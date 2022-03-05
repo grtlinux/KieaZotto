@@ -16,7 +16,7 @@ configurations {
 
 repositories {
 	mavenCentral()
-	
+	// local libs
 	flatDir {
 		dirs 'libs'
 	}
@@ -50,6 +50,7 @@ dependencies {
 }
 
 test {
+	// skip test
 	exclude '**/*'
 	useJUnitPlatform()
 }
