@@ -33,6 +33,7 @@ spring:
       web-allow-others: true
   datasource:
     #url: jdbc:h2:tcp://localhost:9092/monsterdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    #url: jdbc:h2:tcp://localhost:9092/testdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
     url: jdbc:log4jdbc:h2:tcp://localhost:9092/monsterdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
     #driverClassName: org.h2.Driver
     driverClassName: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
